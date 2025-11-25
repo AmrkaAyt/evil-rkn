@@ -144,9 +144,3 @@ Typical development workflow:
 4. Adjust the HTTP gateway and registry updater if needed.
 5. Run tests and linting.
 6. Build and run the service locally or in Docker.
-
----
-
-## Notes
-
-This README is intentionally minimal and focused on practical usage and structure. Extend it with concrete examples of requests/responses once the public API surface is finalized.
