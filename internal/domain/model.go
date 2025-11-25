@@ -1,5 +1,7 @@
 package domain
 
+import "time"
+
 // Registry — in memory representation of blocking list.
 // NOTE: domain and URL hashes are 64-bit and collisions are theoretically possible,
 // but considered acceptable for this task. If false positives become critical,
@@ -8,6 +10,7 @@ type Registry struct {
 	DomainHashes []uint64 // Sorted hash domains
 	URLHashes    []uint64
 	IPs          map[string]struct{}
+	LastUpdated  time.Time
 }
 
 // NormalizedURL — result of normalize

@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"evil-rkn/internal/registry"
 	"log"
 	"net/http"
 	"time"
@@ -13,7 +14,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func RunHTTPGatewayServer(ctx context.Context, httpAddr, grpcEndpoint string) error {
+func RunHTTPGatewayServer(ctx context.Context, httpAddr, grpcEndpoint string, holder *registry.Holder) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
@@ -36,6 +37,20 @@ func RunHTTPGatewayServer(ctx context.Context, httpAddr, grpcEndpoint string) er
 
 	// /readyz — readiness check; in production it can be replaced with real gRPC health probing
 	mux.HandleFunc("/readyz", func(w http.ResponseWriter, r *http.Request) {
+		reg := holder.Get()
+		if reg == nil || reg.LastUpdated.IsZero() || len(reg.DomainHashes) == 0 {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			_, _ = w.Write([]byte("stale"))
+			return
+		}
+
+		age := time.Since(reg.LastUpdated)
+		if age < 0 || age > 48*time.Hour {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			_, _ = w.Write([]byte("stale"))
+			return
+		}
+
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte("ready"))
 	})

@@ -131,6 +131,8 @@ func (c *Client) FetchRegistry(ctx context.Context) (*domain.Registry, error) {
 		URLHashes:    nil,
 		IPs:          make(map[string]struct{}),
 	}
+	reg.LastUpdated = time.Now().UTC()
+
 	return reg, nil
 }
 

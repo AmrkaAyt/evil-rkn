@@ -46,10 +46,10 @@ go mod tidy
 go build ./...
 ```
 
-If you have a dedicated main package (for example in `cmd/server`), you can build a binary like this:
+If you have a dedicated main package (for example in `cmd/rkn-service`), you can build a binary like this:
 
 ```bash
-go build -o bin/evil-rkn ./cmd/server
+go build -o bin/evil-rkn ./cmd/rkn-service
 ```
 
 Adjust the path to the main package to match your project.
@@ -72,7 +72,7 @@ go run ./...
 
 The HTTP gateway listens on the configured HTTP address and proxies requests to the gRPC endpoint. Typical configuration would expose:
 
-- HTTP (gRPC-Gateway + health endpoints) on `:8080`
+- HTTP (gRPC-Gateway + health endpoints) on `:80`
 - gRPC on `:9090`
 
 Check your actual flags/environment variables for precise ports.
