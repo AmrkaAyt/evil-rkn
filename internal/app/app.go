@@ -34,7 +34,7 @@ func Run(ctx context.Context, cfg config.Config) error {
 	})
 
 	g.Go(func() error {
-		return httpgw.RunHTTPGatewayServer(ctx, cfg.HTTPAddr, cfg.GRPCAddr)
+		return httpgw.RunHTTPGatewayServer(ctx, cfg.HTTPAddr, cfg.GRPCAddr, holder)
 	})
 
 	if err := g.Wait(); err != nil {

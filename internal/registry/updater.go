@@ -2,6 +2,7 @@ package registry
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"math"
 	"math/rand"
@@ -23,7 +24,7 @@ type Config struct {
 // Start runs background registry updates until the context stops.
 func Start(ctx context.Context, cfg Config, src Fetcher, holder *Holder) error {
 	if cfg.Interval <= 0 {
-		return nil // config should already be validated
+		return fmt.Errorf("updater interval must be > 0, got %s", cfg.Interval)
 	}
 	if cfg.InitialBackoff <= 0 {
 		cfg.InitialBackoff = 30 * time.Second
