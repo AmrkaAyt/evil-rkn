@@ -120,7 +120,7 @@ const file_blockchecker_proto_rawDesc = "" +
 	"\rCheckResponse\x12\x18\n" +
 	"\ablocked\x18\x01 \x01(\bR\ablocked2\x81\x01\n" +
 	"\fBlockChecker\x12q\n" +
-	"\x05Check\x12\x1d.blockchecker.v1.CheckRequest\x1a\x1e.blockchecker.v1.CheckResponse\")\x82\xd3\xe4\x93\x02#Z\x12:\x01*\"\r/api/v1/check\x12\r/api/v1/checkB)Z'evil-rkn/proto/gen;blockcheckerpbbb\x06proto3"
+	"\x05Check\x12\x1d.blockchecker.v1.CheckRequest\x1a\x1e.blockchecker.v1.CheckResponse\")\x82\xd3\xe4\x93\x02#Z\x12:\x01*\"\r/api/v1/check\x12\r/api/v1/checkB$Z\"evil-rkn/proto/gen;blockcheckerpbbb\x06proto3"
 
 var (
 	file_blockchecker_proto_rawDescOnce sync.Once
