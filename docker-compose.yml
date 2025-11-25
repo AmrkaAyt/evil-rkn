@@ -1,0 +1,18 @@
+services:
+  rkn-service:
+    build: .
+    container_name: evil-rkn
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "9090:9090"
+    environment:
+      HTTP_ADDR: ":80"
+      GRPC_ADDR: ":9090"
+      RKN_API_BASE_URL: "https://reestr.rublacklist.net/api/v3"
+      UPDATE_INTERVAL: "6h"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:80/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
