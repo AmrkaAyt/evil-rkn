@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package blockchecker.v1;
+
+option go_package = "evil-rkn/proto/gen;blockcheckerpbb";
+
+// Добавляем поддержку HTTP-аннотаций
+import "google/api/annotations.proto";
+
+message CheckRequest {
+  string url = 1;
+}
+
+message CheckResponse {
+  bool blocked = 1;
+}
+
+service BlockChecker {
+  rpc Check(CheckRequest) returns (CheckResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/check"
+      additional_bindings: {
+        post: "/api/v1/check"
+        body: "*"
+      }
+    };
+  }
+}
